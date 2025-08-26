@@ -22,7 +22,8 @@
       "@components/*": ["src/components/*"],
       "@router/*": ["src/router/*"],
       "@assets/*": ["src/assets/*"],
-      "@study/*": ["src/study/*"]
+      "@study/*": ["src/study/*"],
+      "@store/*": ["src/store/*"]
     },
     
     /* Linting */
