@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { Button } from 'antd';
 import type { Person } from '@/types/interface.ts'
 
+// 只有在类组件中才有生命周期
 // 挂载阶段：
 // constructor → getDerivedStateFromProps → render → componentDidMount
 
