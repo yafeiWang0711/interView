@@ -6,7 +6,7 @@ interface Props {
   age: number;
   sex?: string;
 }
-
+// 函数式组件 没有生命周期
 const FuncC = (props: Props) => {
   const { name, age, sex } = props
   const [count, setCount] = useState<number>(0)
