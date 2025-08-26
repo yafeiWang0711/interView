@@ -1,0 +1,217 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* 练习区与示例区插槽内容相关样式 */
+.exercise-item {
+  display: flex;
+  align-items: flex-start;
+  background: #fafdff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #e3f2fd;
+  padding: 18px 18px 12px 0;
+  gap: 18px;
+  border: 1.5px solid #e3f2fd;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.exercise-item:hover {
+  box-shadow: 0 4px 16px #e3f2fd;
+  border: 1.5px solid #2d8cf0;
+}
+.ex-num-circle {
+  width: 32px;
+  height: 32px;
+  background: #2d8cf0;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.15rem;
+  margin-top: 2px;
+  box-shadow: 0 2px 8px #e3f2fd;
+}
+.ex-body {
+  flex: 1;
+}
+.ex-q {
+  font-size: 1.08rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+.ex-math-list {
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.ex-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.ex-input {
+  border-radius: 6px;
+  font-size: 1rem;
+  margin: 0 4px;
+  background: #fafdff;
+  border: 1.5px solid #e3f2fd;
+  transition: border 0.2s;
+}
+.ex-input:focus {
+  border: 1.5px solid #2d8cf0;
+}
+.ex-input.short {
+  width: 80px !important;
+}
+.ex-btn {
+  background: #2d8cf0;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.98rem;
+  border: none;
+  margin-left: 4px;
+  transition: background 0.2s;
+}
+.ex-btn:hover {
+  background: #3498db;
+}
+.answer-btn {
+  margin-top: 10px;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.98rem;
+}
+.answer-collapse {
+  background: #fafdff;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+.answer-content {
+  background: #fafdff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #2d8cf0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.correct {
+  color: #2ecc40;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.wrong {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.blank {
+  display: inline-block;
+  border-bottom: 1.5px solid #bbb;
+  width: 60px;
+  height: 1.2em;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+.card-title {
+  color: #0984e3;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+  font-size: 1.18rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.example-content {
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+}
+.example-answer {
+  background: #fafdff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #0984e3;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

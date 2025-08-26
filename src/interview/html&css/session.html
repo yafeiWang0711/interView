@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Storage 与 Local Storage 的区别</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .difference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .difference-table th,
+        .difference-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .difference-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .difference-table tr:nth-child(even) {
+            background-color: var(--light-color);
+        }
+        .code-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--danger-color);
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background-color: var(--light-color);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 4px 4px 0 0;
+        }
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .scenario {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .session-scenario {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        .local-scenario {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--success-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Session Storage 与 Local Storage 的区别</h1>
+
+        <p>Web Storage 是 HTML5 引入的一种在客户端存储数据的机制，主要包括 Session Storage 和 Local Storage 两种方式。它们提供了比传统 Cookie 更高效、更安全的客户端存储解决方案。</p>
+
+        <h2>主要区别</h2>
+        <table class="difference-table">
+            <tr>
+                <th>特性</th>
+                <th>Session Storage</th>
+                <th>Local Storage</th>
+            </tr>
+            <tr>
+                <td>生命周期</td>
+                <td>会话期间有效，关闭标签页或浏览器后数据丢失</td>
+                <td>永久保存，除非手动清除</td>
+            </tr>
+            <tr>
+                <td>存储容量</td>
+                <td>约 5MB</td>
+                <td>约 5MB</td>
+            </tr>
+            <tr>
+                <td>作用域</td>
+                <td>仅对当前标签页有效</td>
+                <td>对同一域名下的所有标签页和窗口有效</td>
+            </tr>
+            <tr>
+                <td>数据共享</td>
+                <td>同一标签页内的不同 iframe 之间可以共享</td>
+                <td>同一域名下的所有页面都可以共享</td>
+            </tr>
+            <tr>
+                <td>服务器交互</td>
+                <td>不会自动发送到服务器</td>
+                <td>不会自动发送到服务器</td>
+            </tr>
+        </table>
+
+        <h2>详细解释</h2>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'lifecycle')">生命周期</button>
+            <button class="tab-button" onclick="openTab(event, 'storage')">存储容量</button>
+            <button class="tab-button" onclick="openTab(event, 'scope')">作用域</button>
+            <button class="tab-button" onclick="openTab(event, 'sharing')">数据共享</button>
+        </div>
+
+        <div id="lifecycle" class="tab-content active">
+            <h3>生命周期</h3>
+            <p><strong>Session Storage</strong>：仅在当前会话期间有效。当用户关闭标签页或浏览器时，数据会被自动清除。即使在同一浏览器中打开相同网站的新标签页，也无法访问之前标签页中的 Session Storage 数据。</p>
+            <p><strong>Local Storage</strong>：数据会永久保存在用户的设备上，直到用户手动清除（通过 JavaScript 代码或浏览器设置）。即使用户关闭并重新打开浏览器，数据仍然存在。</p>
+        </div>
+
+        <div id="storage" class="tab-content">
+            <h3>存储容量</h3>
+            <p>Session Storage 和 Local Storage 的存储容量通常都是约 5MB，远大于 Cookie 的 4KB 限制。具体容量可能因浏览器而异，但大多数现代浏览器都支持至少 5MB 的存储容量。</p>
+            <p>需要注意的是，这个限制是针对每个域名的，而不是每个页面。</p>
+        </div>
+
+        <div id="scope" class="tab-content">
+            <h3>作用域</h3>
+            <p><strong>Session Storage</strong> 的作用域限制在当前标签页或窗口内。每个标签页或窗口都有自己独立的 Session Storage 空间，即使它们访问的是同一个网站。</p>
+            <p><strong>Local Storage</strong> 的作用域是整个域名。同一域名下的所有标签页和窗口都可以访问和修改相同的 Local Storage 数据。</p>
+        </div>
+
+        <div id="sharing" class="tab-content">
+            <h3>数据共享</h3>
+            <p><strong>Session Storage</strong> 数据不能在不同的标签页或窗口之间共享，但在同一标签页内的不同 iframe 之间可以共享，前提是它们来自同一域名。</p>
+            <p><strong>Local Storage</strong> 数据可以在同一域名下的所有标签页和窗口之间共享。当一个页面修改了 Local Storage 数据时，其他页面可以通过监听 <code>storage</code> 事件来获取更新。</p>
+        </div>
+
+        <h2>代码示例</h2>
+
+        <h3>Session Storage 使用示例</h3>
+        <div class="code-section">
+            <code>// 存储数据到 Session Storage
+sessionStorage.setItem('username', '张三');
+sessionStorage.setItem('token', 'abc123');
+
+// 从 Session Storage 读取数据
+const username = sessionStorage.getItem('username');
+console.log('用户名:', username); // 输出: 用户名: 张三
+
+// 从 Session Storage 删除指定数据
+sessionStorage.removeItem('token');
+
+// 清空所有 Session Storage 数据
+sessionStorage.clear();</code>
+        </div>
+
+        <h3>Local Storage 使用示例</h3>
+        <div class="code-section">
+            <code>// 存储数据到 Local Storage
+localStorage.setItem('theme', 'dark');
+localStorage.setItem('language', 'zh-CN');
+
+// 从 Local Storage 读取数据
+const theme = localStorage.getItem('theme');
+console.log('主题:', theme); // 输出: 主题: dark
+
+// 修改 Local Storage 中的数据
+localStorage.setItem('theme', 'light');
+
+// 从 Local Storage 删除指定数据
+localStorage.removeItem('language');
+
+// 清空所有 Local Storage 数据
+localStorage.clear();</code>
+        </div>
+
+        <h2>适用场景</h2>
+
+        <div class="scenario session-scenario">
+            <h3>Session Storage 适用场景</h3>
+            <ul>
+                <li>临时保存用户在表单中输入的数据，防止页面刷新导致数据丢失</li>
+                <li>存储用户会话期间的临时状态，如购物车内容（但不建议长期存储）</li>
+                <li>保存单页应用程序的状态，如当前路由、用户界面设置等</li>
+                <li>存储敏感信息，因为会话结束后数据会自动清除</li>
+            </ul>
+        </div>
+
+        <div class="scenario local-scenario">
+            <h3>Local Storage 适用场景</h3>
+            <ul>
+                <li>保存用户偏好设置，如主题、语言、字体大小等</li>
+                <li>存储应用程序数据，如离线游戏进度、待办事项等</li>
+                <li>缓存不常变化的数据，减少服务器请求</li>
+                <li>实现本地购物车，即使用户关闭浏览器后再打开，购物车内容仍然保留</li>
+            </ul>
+        </div>
+
+        <h2>注意事项</h2>
+        <p>1. 不要在 Web Storage 中存储敏感信息，如密码、信用卡号等。虽然这些数据不会自动发送到服务器，但仍然可以通过 JavaScript 访问，存在安全风险。</p>
+        <p>2. Web Storage 中只能存储字符串类型的数据。如果需要存储对象或数组，需要使用 <code>JSON.stringify()</code> 进行序列化，读取时使用 <code>JSON.parse()</code> 进行反序列化。</p>
+        <p>3. 不同浏览器对 Web Storage 的支持程度和容量限制可能不同，开发时需要考虑兼容性问题。</p>
+        <p>4. 当存储的数据量接近容量限制时，尝试存储更多数据会抛出异常，开发时需要捕获并处理这些异常。</p>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // 隐藏所有标签内容
+            const tabContent = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove('active');
+            }
+
+            // 移除所有标签按钮的活动状态
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+
+            // 显示当前标签内容并激活当前标签按钮
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // 示例：在页面加载时存储一些测试数据
+        window.onload = function() {
+            // 仅用于演示，实际应用中根据需要使用
+            sessionStorage.setItem('demo', '这是 Session Storage 演示数据');
+            localStorage.setItem('demo', '这是 Local Storage 演示数据');
+        };
+    </script>
+</body>
+</html>

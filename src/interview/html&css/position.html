@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="listP">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+    </div>
+</body>
+<style>
+    .listP {
+        width: 500px;
+        position: relative;
+    }
+
+    .item {
+        height: 40px;
+        margin: 10px 0;
+        background-color: rgba(227, 151, 121, 0.4);
+    }
+
+    .item:nth-child(2) {
+        position: relative;
+        /* 相对定位 相对当前元素的原始位置，不会改变页面的正常布局 */
+        left: 10px;
+        top: -20px;
+    }
+
+    .item:nth-child(3) {
+        position: absolute;
+        /* 绝对 会丢失自身位置 会丢失自身位置，以及大小，
+        
+        绝对定位会相对于对劲的非static定位的祖先元素进行偏移，如果找不到就相对于浏览器床就
+        所以在使用absolute定位的时候，最好先设置一个ralative的祖先元素
+        */
+        left: 20px;
+        top: 30px;
+    }
+
+    .item:nth-child(4){
+        position: fixed;
+        /* fixed 
+        固定定位
+        不会受任何祖先元素的影响，自和浏览器窗口有关，
+        */
+        width: 40px;
+        top: 50px;
+        left: 50px;
+    }
+    
+</style>
+
+</html>

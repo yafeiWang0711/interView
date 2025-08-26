@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 和 CSS 面试题</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 30px;
+            border-left: 4px solid #4285f4;
+            padding-left: 15px;
+        }
+        .code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        h2 {
+            color: #4285f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML 和 CSS 面试题</h1>
+
+    <div class="question">
+        <h2>1. 请解释 HTML5 的新特性？</h2>
+        <p>HTML5 引入了许多新特性，包括语义化标签（如 &lt;header&gt;, &lt;footer&gt;, &lt;article&gt;）、表单增强、音频和视频支持、Canvas 绘图、Web Storage 等。</p>
+        <div class="code">
+            <!-- 示例：使用 HTML5 语义化标签 -->
+            <header>
+                <h1>网站标题</h1>
+            </header>
+            <article>
+                <h2>文章标题</h2>
+                <p>文章内容...</p>
+            </article>
+            <footer>
+                <p>版权信息</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>2. 请说明盒模型（Box Model）是什么？</h2>
+        <p>盒模型描述了一个元素在页面上占据的空间，包括内容（content）、内边距（padding）、边框（border）和外边距（margin）。</p>
+        <div class="code">
+            <style>
+                .box {
+                    width: 200px;
+                    height: 100px;
+                    padding: 20px;
+                    border: 5px solid #000;
+                    margin: 10px;
+                }
+            </style>
+            <div class="box">示例盒子</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>3. 请解释 CSS 选择器的优先级规则？</h2>
+        <p>CSS 选择器的优先级由内联样式、ID 选择器、类选择器/属性选择器/伪类、元素选择器/伪元素决定，使用权重计算。</p>
+        <div class="code">
+            <style>
+                /* 权重：0,0,0,1 */
+                p { color: red; }
+                /* 权重：0,0,1,0 */
+                .text { color: blue; }
+                /* 权重：0,1,0,0 */
+                #content { color: green; }
+            </style>
+            <p id="content" class="text">文本示例</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>4. 如何实现水平和垂直居中？</h2>
+        <p>可以使用 Flexbox 或 Grid 布局实现，也可以使用绝对定位配合 transform。</p>
+        <div class="code">
+            <style>
+                /* Flexbox 实现 */
+                .flex-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 200px;
+                    background-color: #f0f0f0;
+                }
+                
+                /* Grid 实现 */
+                .grid-container {
+                    display: grid;
+                    place-items: center;
+                    height: 200px;
+                    background-color: #e0e0e0;
+                }
+            </style>
+            <div class="flex-container">Flexbox 居中</div>
+            <div class="grid-container">Grid 居中</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>5. 请说明响应式设计的概念和实现方法？</h2>
+        <p>响应式设计使网页能够适应不同设备的屏幕尺寸，通常使用媒体查询和弹性布局实现。</p>
+        <div class="code">
+            <style>
+                .responsive-box {
+                    width: 100%;
+                    background-color: #4285f4;
+                    color: white;
+                    padding: 20px;
+                }
+                
+                @media (min-width: 768px) {
+                    .responsive-box {
+                        width: 50%;
+                        background-color: #34a853;
+                    }
+                }
+            </style>
+            <div class="responsive-box">响应式盒子</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>6. 请解释 `display: none` 和 `visibility: hidden` 的区别？</h2>
+        <p>`display: none` 会完全移除元素，不占据页面空间；而 `visibility: hidden` 只是隐藏元素，但仍保留其占据的空间。</p>
+        <div class="code">
+            <style>
+                .none { display: none; }
+                .hidden { visibility: hidden; }
+            </style>
+            <div class="none">这个元素被移除了</div>
+            <div class="hidden">这个元素被隐藏了</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>7. 什么是 CSS 雪碧图（Sprite）？</h2>
+        <p>CSS 雪碧图是将多个小图片合并成一张大图片，通过 `background-position` 属性来显示不同的小图片，减少 HTTP 请求数，提高页面加载速度。</p>
+        <div class="code">
+            <style>
+                .sprite {
+                    width: 50px;
+                    height: 50px;
+                    background-image: url('sprite.png');
+                    background-position: -100px -50px;
+                }
+            </style>
+            <div class="sprite"></div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>8. 请说明 `z-index` 的工作原理？</h2>
+        <p>`z-index` 用于控制元素在 z 轴上的堆叠顺序，值越大的元素越靠近用户。只有定位元素（`position` 为 `relative`、`absolute`、`fixed` 或 `sticky`）的 `z-index` 才有效。</p>
+        <div class="code">
+            <style>
+                .box1 {
+                    position: relative;
+                    z-index: 1;
+                    background: red;
+                }
+                .box2 {
+                    position: relative;
+                    z-index: 2;
+                    background: blue;
+                }
+            </style>
+            <div class="box1">z-index: 1</div>
+            <div class="box2">z-index: 2</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>9. 请解释 HTML 中的语义化标签作用？</h2>
+        <p>语义化标签可以清晰地描述内容的结构和含义，提高代码可读性和可维护性，同时有利于搜索引擎优化（SEO）和无障碍访问。</p>
+        <div class="code">
+            <!-- 使用语义化标签 -->
+            <header>网站头部</header>
+            <nav>导航菜单</nav>
+            <article>文章内容</article>
+            <aside>侧边栏</aside>
+            <footer>网站底部</footer>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>10. 如何清除浮动（Clear Floats）？</h2>
+        <p>可以使用 `clear: both` 属性、创建 BFC 或使用伪元素 `::after` 来清除浮动。</p>
+        <div class="code">
+            <style>
+                .clearfix::after {
+                    content: "";
+                    display: block;
+                    clear: both;
+                }
+                .float-left { float: left; }
+            </style>
+            <div class="clearfix">
+                <div class="float-left">浮动元素</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>11. 请解释 CSS 中的 `box-sizing` 属性？</h2>
+        <p>`box-sizing` 属性用于控制盒模型的计算方式。`content-box` 是默认值，宽度和高度只包含内容；`border-box` 宽度和高度包含内容、内边距和边框。</p>
+        <div class="code">
+            <style>
+                .content-box {
+                    box-sizing: content-box;
+                    width: 200px;
+                    padding: 20px;
+                    border: 5px solid black;
+                }
+                .border-box {
+                    box-sizing: border-box;
+                    width: 200px;
+                    padding: 20px;
+                    border: 5px solid black;
+                }
+            </style>
+            <div class="content-box">content-box</div>
+            <div class="border-box">border-box</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>12. 什么是 HTML 实体（Entities）？</h2>
+        <p>HTML 实体是用于显示保留字符（如 `<`、`>`、`&`）和特殊字符（如版权符号 `©`）的代码。以 `&` 开头，以 `;` 结尾。</p>
+        <div class="code">
+            &lt; 表示 <br>
+            &gt; 表示 > <br>
+            &amp; 表示 & <br>
+            &copy; 表示 ©
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>13. 请说明 CSS 中 `position` 属性的不同值？</h2>
+        <p>`position` 属性有 `static`（默认）、`relative`（相对定位）、`absolute`（绝对定位）、`fixed`（固定定位）和 `sticky`（粘性定位）几种值，用于控制元素的定位方式。</p>
+        <div class="code">
+            <style>
+                .relative { position: relative; top: 10px; left: 10px; }
+                .absolute { position: absolute; top: 0; left: 0; }
+                .fixed { position: fixed; top: 0; right: 0; }
+                .sticky { position: sticky; top: 0; }
+            </style>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>14. 请解释 CSS 中的层叠上下文（Stacking Context）？</h2>
+        <p>层叠上下文是 HTML 元素的三维概念，在 z 轴上控制元素的堆叠顺序。某些属性（如 `position: absolute/relative/fixed/sticky` 且 `z-index` 不为 `auto`、`opacity` 小于 1 等）会创建层叠上下文。</p>
+        <div class="code">
+            <style>
+                .stacking-context {
+                    position: relative;
+                    z-index: 1;
+                }
+            </style>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>15. 如何实现 CSS 动画？</h2>
+        <p>可以使用 `@keyframes` 定义动画关键帧，再使用 `animation` 属性应用动画。也可以使用 `transition` 属性实现简单的过渡动画。</p>
+        <div class="code">
+            <style>
+                @keyframes slide {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(100px); }
+                }
+                .animated {
+                    animation: slide 2s infinite;
+                }
+                .transitioned {
+                    transition: background-color 1s;
+                }
+                .transitioned:hover {
+                    background-color: red;
+                }
+            </style>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>16. 请详细解释 CSS Flexbox 的主要属性及其作用？</h2>
+        <p>Flexbox 提供了灵活的布局模型，主要包括容器属性和项目属性。容器属性有 flex-direction、flex-wrap、justify-content、align-items 和 align-content；项目属性有 order、flex-grow、flex-shrink、flex-basis 和 align-self。</p>
+        <div class="code">
+            <style>
+                .flex-container {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 300px;
+                }
+                .flex-item {
+                    flex: 1 0 100px;
+                    order: 2;
+                }
+                .item-1 { order: 1; }
+            </style>
+            <div class="flex-container">
+                <div class="flex-item item-1">项目1</div>
+                <div class="flex-item">项目2</div>
+                <div class="flex-item">项目3</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>17. 请解释 CSS Grid 布局与 Flexbox 的主要区别？</h2>
+        <p>Grid 是二维布局系统（同时控制行和列），适合整体页面布局；Flexbox 是一维布局系统（行或列），适合组件内部布局。Grid 布局由容器和项目组成，使用 grid-template-columns/rows 定义轨道，而 Flexbox 使用 flex-direction 定义主轴。</p>
+        <div class="code">
+            <style>
+                .grid-container {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-gap: 10px;
+                }
+                .grid-item {
+                    grid-column: span 2;
+                }
+            </style>
+            <div class="grid-container">
+                <div class="grid-item">项目1</div>
+                <div>项目2</div>
+                <div>项目3</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>18. 如何实现响应式图片加载？</h2>
+        <p>可以使用 HTML 的 srcset 和 sizes 属性，根据不同屏幕尺寸加载不同分辨率的图片；也可以使用 CSS 的 background-image 配合媒体查询；或者使用 JavaScript 动态加载。</p>
+        <div class="code">
+            <!-- HTML 响应式图片 -->
+            <img src="small.jpg" 
+                 srcset="medium.jpg 800w, large.jpg 1200w"
+                 sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 800px"
+                 alt="响应式图片">
+
+            <!-- CSS 响应式背景图 -->
+            <style>
+                .responsive-bg {
+                    background-image: url('small-bg.jpg');
+                }
+                @media (min-width: 800px) {
+                    .responsive-bg {
+                        background-image: url('large-bg.jpg');
+                    }
+                }
+            </style>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>19. 什么是 CSS 预处理器？请举例说明其主要特性。</h2>
+        <p>CSS 预处理器是扩展 CSS 功能的工具，如 Sass、Less 和 Stylus。主要特性包括变量、嵌套规则、混合（mixins）、继承、函数和运算等，使 CSS 更易于维护和扩展。</p>
+        <div class="code">
+            <!-- Sass 示例 -->
+            $primary-color: #4285f4;
+            $spacing: 16px;
+
+            .container {
+                padding: $spacing;
+                background-color: $primary-color;
+
+                .item {
+                    margin-bottom: $spacing / 2;
+                }
+            }
+
+            // 编译后 CSS
+            .container {
+                padding: 16px;
+                background-color: #4285f4;
+            }
+            .container .item {
+                margin-bottom: 8px;
+            }
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>20. 请解释 CSS 中的 BFC（块级格式化上下文）及其应用场景？</h2>
+        <p>BFC 是一个独立的渲染区域，内部元素的布局不受外部影响。触发 BFC 的条件包括：根元素、float 不为 none、position 为 absolute/fixed、overflow 不为 visible、display 为 inline-block/table-cell/flex 等。BFC 可用于清除浮动、防止 margin 重叠、包含浮动元素等。</p>
+        <div class="code">
+            <style>
+                .bfc-container {
+                    overflow: hidden; /* 触发 BFC */
+                }
+                .float-item {
+                    float: left;
+                    width: 100px;
+                    height: 100px;
+                }
+            </style>
+            <div class="bfc-container">
+                <div class="float-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>21. 请详细解释 HTML5 的离线存储机制及其应用场景？</h2>
+        <p>HTML5 提供了三种主要离线存储方案，各有不同特性和适用场景：</p>
+        <ul>
+            <li><strong>localStorage</strong>：持久化存储，容量约5-10MB，无过期时间，页面刷新或浏览器重启后数据保留。适用于保存用户偏好设置、本地缓存数据等。</li>
+            <li><strong>sessionStorage</strong>：会话级存储，仅在当前标签页/窗口生命周期内有效，关闭页面即清除。适用于临时表单数据、单页面应用状态管理等。</li>
+            <li><strong>Application Cache</strong>（已逐步被 Service Worker 取代）：通过 manifest 文件声明需要缓存的资源，支持离线访问整个应用。适用于创建离线可用的 Web 应用。</li>
+            <li><strong>IndexedDB</strong>：高级客户端数据库，支持事务、索引和复杂查询，容量更大。适用于需要在客户端存储大量结构化数据的场景。</li>
+        </ul>
+        <p><strong>最佳实践</strong>：敏感数据不应存储在客户端；避免存储大量数据影响性能；使用 try-catch 处理存储限制异常；考虑使用 localStorage/sessionStorage 封装库如 localForage 提升开发体验。</p>
+        <div class="code">
+            // localStorage 完整使用示例
+            try {
+                // 存储复杂对象需序列化
+                const userSettings = {
+                    theme: 'dark',
+                    notifications: true,
+                    lastLogin: new Date().toISOString()
+                };
+                localStorage.setItem('userSettings', JSON.stringify(userSettings));
+
+                // 读取并解析
+                const savedSettings = JSON.parse(localStorage.getItem('userSettings'));
+
+                // 更新数据
+                savedSettings.theme = 'light';
+                localStorage.setItem('userSettings', JSON.stringify(savedSettings));
+
+                // 删除数据
+                localStorage.removeItem('temporaryData');
+
+                // 清除所有数据
+                // localStorage.clear();
+            } catch (e) {
+                console.error('存储失败:', e);
+                // 处理存储满或安全限制情况
+            }
+
+            // IndexedDB 基本示例
+            const request = indexedDB.open('MyDatabase', 1);
+            request.onupgradeneeded = function(e) {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains('products')) {
+                    db.createObjectStore('products', {keyPath: 'id'});
+                }
+            };
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>22. 详细介绍 CSS 模块化方案的优缺点及适用场景？</h2>
+        <p>CSS 模块化是解决样式冲突、提高代码可维护性的关键技术，以下是主流方案的对比分析：</p>
+        <table border="1" style="border-collapse: collapse; width: 100%; margin: 15px 0;">
+            <tr style="background-color: #f5f5f5;">
+                <th style="padding: 8px; text-align: left;">方案</th>
+                <th style="padding: 8px; text-align: left;">原理</th>
+                <th style="padding: 8px; text-align: left;">优点</th>
+                <th style="padding: 8px; text-align: left;">缺点</th>
+                <th style="padding: 8px; text-align: left;">适用场景</th>
+            </tr>
+            <tr>
+                <td><strong>BEM</strong></td>
+                <td>block__element--modifier 命名规范</td>
+                <td>无构建依赖、语义清晰、兼容性好</td>
+                <td>类名冗长、手动维护成本高</td>
+                <td>中小型项目、快速原型开发</td>
+            </tr>
+            <tr>
+                <td><strong>CSS Modules</strong></td>
+                <td>构建时生成唯一哈希类名</td>
+                <td>彻底隔离、局部作用域、支持组合</td>
+                <td>需要构建工具、调试体验稍差</td>
+                <td>React/Vue 组件化项目</td>
+            </tr>
+            <tr>
+                <td><strong>CSS-in-JS</strong></td>
+                <td>JS 中定义样式，动态生成</td>
+                <td>动态样式、主题切换、组件封装</td>
+                <td>运行时开销、SSR 复杂、调试困难</td>
+                <td>需要高度动态样式的应用</td>
+            </tr>
+            <tr>
+                <td><strong>Shadow DOM</strong></td>
+                <td>浏览器原生样式隔离</td>
+                <td>真正隔离、原生支持</td>
+                <td>兼容性问题、调试复杂</td>
+                <td>Web Components 开发</td>
+            </tr>
+        </table>
+        <p><strong>最佳实践</strong>：大型项目可混合使用多种方案；优先考虑 CSS Modules 平衡开发效率和性能；组件库开发适合 Shadow DOM；避免过度嵌套和复杂选择器。</p>
+        <div class="code">
+            /* BEM 高级示例 - 结合状态和主题 */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .modal--active {
+                display: block;
+            }
+            .modal__header {
+                padding: 16px;
+                border-bottom: 1px solid #eee;
+            }
+            .modal__title {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            .modal__content {
+                padding: 16px;
+            }
+            .modal--large .modal__content {
+                padding: 24px;
+            }
+            .modal__button {
+                padding: 8px 16px;
+                border-radius: 4px;
+            }
+            .modal__button--primary {
+                background-color: #007bff;
+                color: white;
+                border: none;
+            }
+
+            /* CSS Modules 高级用法 */
+            /* styles.module.css */
+            .card {
+                composes: boxShadow from './mixins.css';
+                padding: 16px;
+                border-radius: 8px;
+            }
+            .title {
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+            }
+
+            /* 组件中使用 */
+            import styles from './styles.module.css';
+            export default function Card() {
+                return (
+                    <div className={styles.card}>
+                        <h3 className={styles.title}>卡片标题</h3>
+                    </div>
+                );
+            }
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>23. 详细解释浏览器的关键渲染路径(CRP)及优化策略？</h2>
+        <p>关键渲染路径(Critical Rendering Path)是浏览器将 HTML、CSS 和 JavaScript 转换为屏幕上像素的过程，直接影响首屏加载时间和用户体验。理解并优化 CRP 是前端性能优化的核心。</p>
+        <h3>关键渲染路径的五个阶段：</h3>
+        <ol>
+            <li><strong>构建 DOM 树</strong>：解析 HTML 生成 DOM 节点树，描述内容和结构。HTML 解析会被 JS 执行阻塞。</li>
+            <li><strong>构建 CSSOM 树</strong>：解析 CSS 生成 CSSOM 树，描述样式规则。CSS 解析会阻塞渲染。</li>
+            <li><strong>构建渲染树</strong>：结合 DOM 和 CSSOM，仅包含可见元素，计算每个节点的样式。</li>
+            <li><strong>布局(Layout)</strong>：计算元素几何位置和大小(重排/回流)，受盒模型、尺寸、定位影响。</li>
+            <li><strong>绘制(Paint)</strong>：填充像素，包括颜色、背景、阴影等视觉属性(重绘)。</li>
+            <li><strong>合成(Composite)</strong>：将页面分层，分别绘制后合并到屏幕(现代浏览器新增步骤)。</li>
+        </ol>
+        <h3>关键优化策略：</h3>
+        <ul>
+            <li><strong>减少关键资源体积</strong>：minify/压缩代码、移除未使用 CSS、使用现代图片格式</li>
+            <li><strong>优化关键路径长度</strong>：减少 HTTP 请求、内联关键资源、预连接关键域</li>
+            <li><strong>优先加载关键资源</strong>：延迟加载非关键 JS/CSS、预加载关键资源</li>
+            <li><strong>避免阻塞渲染</strong>：CSS 异步加载、JS defer/async、媒体查询适配</li>
+            <li><strong>优化渲染性能</strong>：减少布局偏移(CLS)、批量修改 DOM、使用 will-change 提示</li>
+        </ul>
+        <div class="code">
+            <!-- 关键渲染路径优化完整示例 -->
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>CRP 优化示例</title>
+                <!-- 1. 内联关键 CSS (首屏必需样式) -->
+                <style>
+                    /* 仅包含首屏渲染必需的最小样式集 */
+                    body { margin: 0; font-family: sans-serif; }
+                    .hero { display: flex; align-items: center; height: 100vh; }
+                    .logo { width: 120px; height: 120px; }
+                    /* 其他关键样式... */
+                </style>
+                <!-- 2. 非关键 CSS 异步加载 -->
+                <link rel="preload" href="non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+                <noscript><link rel="stylesheet" href="non-critical.css"></noscript>
+            </head>
+            <body>
+                <!-- 首屏内容 -->
+                <div class="hero">
+                    <img class="logo" src="logo.svg" alt="Logo">
+                    <h1>关键内容优先展示</h1>
+                </div>
+                <!-- 非首屏内容延迟加载 -->
+                <div class="below-fold" hidden>
+                    <!-- 非首屏内容... -->
+                </div>
+                <!-- 3. JS 优化：defer 不阻塞 DOM 解析和渲染 -->
+                <script src="critical.js" defer></script>
+                <!-- 4. 预连接关键第三方域 -->
+                <link rel="preconnect" href="https://api.example.com">
+                <!-- 5. 预加载关键字体 -->
+                <link rel="preload" href="fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
+            </body>
+            </html>
+        </div>
+        <h3>性能指标与工具：</h3>
+        <p>关键指标：首次内容绘制(FCP)、最大内容绘制(LCP)、布局偏移(CLS)。推荐工具：Lighthouse、Chrome DevTools Performance 面板、WebPageTest。</p>
+    </div>
+
+    <div class="question">
+        <h2>24. 如何实现 CSS 三角形？</h2>
+        <p>利用 CSS border 属性，将元素宽度高度设为 0，通过设置不同方向边框宽度和颜色实现三角形。</p>
+        <div class="code">
+            <style>
+                .triangle {
+                    width: 0;
+                    height: 0;
+                    border-width: 20px;
+                    border-style: solid;
+                    border-color: transparent #4285f4 transparent transparent;
+                }
+            </style>
+            <div class="triangle"></div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>25. 请解释 HTML5 的拖放 API？</h2>
+        <p>HTML5 拖放 API 允许元素被拖动和放置，主要事件有 dragstart、drag、dragend、dragenter、dragover、dragleave 和 drop。需要设置 draggable="true" 使元素可拖动。</p>
+        <div class="code">
+            <div draggable="true" ondragstart="handleDragStart(event)">可拖动元素</div>
+            <div ondragover="event.preventDefault()" ondrop="handleDrop(event)">放置区域</div>
+            <script>
+                function handleDragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); }
+                function handleDrop(e) {
+                    e.preventDefault();
+                    const data = e.dataTransfer.getData('text/plain');
+                    e.target.appendChild(document.getElementById(data));
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>26. 什么是 CSS 变量（Custom Properties）？如何使用？</h2>
+        <p>CSS 变量是可重用的值，使用 -- 前缀定义，通过 var() 函数引用。支持继承和作用域，可动态修改，提升样式维护性。</p>
+        <div class="code">
+            <style>
+                :root { --primary-color: #4285f4; }
+                .button {
+                    background-color: var(--primary-color);
+                    color: white;
+                    padding: 8px 16px;
+                }
+                .card { border: 1px solid var(--primary-color); }
+            </style>
+            <button class="button">按钮</button>
+            <div class="card">卡片</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>27. 请解释 CSS 中的 contain 属性及其作用？</h2>
+        <p>contain 属性允许开发者声明元素的渲染边界，帮助浏览器优化渲染性能。值包括 layout、paint、size 和 strict，分别表示布局、绘制、尺寸和严格隔离。</p>
+        <div class="code">
+            <style>
+                .widget {
+                    contain: layout paint size;
+                    width: 300px;
+                    height: 200px;
+                }
+            </style>
+            <div class="widget">隔离渲染的组件</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>28. 如何实现文本溢出省略效果？</h2>
+        <p>单行文本溢出：white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 多行文本溢出可使用 -webkit-line-clamp 配合 display: -webkit-box 和 -webkit-box-orient: vertical。</p>
+        <div class="code">
+            <style>
+                .single-line {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 200px;
+                }
+                .multi-line {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    width: 200px;
+                }
+            </style>
+            <p class="single-line">这是单行文本溢出省略效果示例</p>
+            <p class="multi-line">这是多行文本溢出省略效果示例，最多显示三行文字内容</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>29. 请解释 HTML5 的 Web Storage 与 Cookie 的区别？</h2>
+        <p>Web Storage (localStorage/sessionStorage) 存储容量更大（5-10MB vs 4KB），不随请求发送，仅客户端访问；Cookie 容量小，每次请求都会发送到服务器，可设置过期时间和跨域共享。</p>
+        <div class="code">
+            // localStorage 存储
+            localStorage.setItem('theme', 'dark');
+            // Cookie 设置
+            document.cookie = 'username=John; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/';
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>30. 什么是 CSS 函数 calc()？如何使用？</h2>
+        <p>calc() 允许在 CSS 中进行数学计算，支持加减乘除运算，可混合不同单位（如 px、%、em）。常用于动态计算尺寸，如宽度、高度、边距等。</p>
+        <div class="code">
+            <style>
+                .container {
+                    width: calc(100% - 200px);
+                    height: calc(200px + 5em);
+                    padding: calc(1rem * 2);
+                }
+            </style>
+            <div class="container">使用 calc() 的容器</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>31. 请解释 HTML5 的 Canvas 与 SVG 的区别？</h2>
+        <p>Canvas 是基于像素的位图，通过 JavaScript 动态绘制，适合复杂动画和游戏；SVG 是基于矢量的 XML 图形，可直接编辑，适合图标和缩放不变形的图形。Canvas 不支持事件处理器，SVG 支持。</p>
+        <div class="code">
+            <!-- Canvas 示例 -->
+            <canvas id="myCanvas" width="200" height="100"></canvas>
+            <script>
+                const ctx = document.getElementById('myCanvas').getContext('2d');
+                ctx.fillStyle = '#4285f4';
+                ctx.fillRect(10, 10, 180, 80);
+            </script>
+
+            <!-- SVG 示例 -->
+            <svg width="200" height="100">
+                <rect x="10" y="10" width="180" height="80" fill="#34a853" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>32. 如何实现 CSS 模糊效果？</h2>
+        <p>使用 filter: blur() 属性可实现元素模糊效果，参数为模糊半径（px）。可用于背景模糊、毛玻璃效果等。注意：filter 可能影响性能，避免过度使用。</p>
+        <div class="code">
+            <style>
+                .blur-bg {
+                    background-image: url('image.jpg');
+                    filter: blur(5px);
+                }
+                .glass-effect {
+                    backdrop-filter: blur(10px);
+                    background-color: rgba(255, 255, 255, 0.5);
+                }
+            </style>
+            <div class="blur-bg"></div>
+            <div class="glass-effect">毛玻璃效果</div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>33. 请解释 HTML5 的语义化标签有哪些？为什么重要？</h2>
+        <p>HTML5 语义化标签包括 header、footer、nav、article、section、aside、main、figure 等，它们清晰描述内容结构和含义。重要性：提升可访问性、SEO、代码可读性和维护性。</p>
+        <div class="code">
+            <header>网站头部</header>
+            <nav>导航菜单</nav>
+            <main>
+                <article>主要内容</article>
+                <aside>侧边栏</aside>
+            </main>
+            <footer>网站底部</footer>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>34. 什么是 CSS 伪类和伪元素？请举例说明区别。</h2>
+        <p>伪类 (:) 用于选择元素的特殊状态（如 :hover、:active、:nth-child()）；伪元素 (::) 用于创建不在 DOM 中的虚拟元素（如 ::before、::after、::first-line）。一个选择器可包含多个伪类，但只能有一个伪元素。</p>
+        <div class="code">
+            <style>
+                /* 伪类 */
+                a:hover { color: red; }
+                li:nth-child(2) { background: #f0f0f0; }
+                
+                /* 伪元素 */
+                p::before { content: ""; display: block; width: 20px; height: 2px; background: #000; }
+                p::first-line { font-weight: bold; }
+            </style>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>35. 如何实现 CSS 加载动画？</h2>
+        <p>可使用 @keyframes 定义旋转、缩放等动画，配合 border-radius 和 border 属性创建加载指示器。也可使用 CSS 变换和过渡实现简单动画。</p>
+        <div class="code">
+            <style>
+                .loader {
+                    width: 40px;
+                    height: 40px;
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid #4285f4;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>36. 请解释 HTML5 的 Web Workers？</h2>
+        <p>Web Workers 允许在后台线程运行 JavaScript，避免阻塞主线程，提升页面响应性。适用于复杂计算、数据处理等耗时操作。主线程与 Worker 通过 postMessage 通信。</p>
+        <div class="code">
+            <!-- 主线程 -->
+            <script>
+                const worker = new Worker('worker.js');
+                worker.postMessage({ type: 'calculate', data: 100 });
+                worker.onmessage = e => console.log('结果:', e.data);
+            </script>
+
+            <!-- worker.js -->
+            self.onmessage = e => {
+                if (e.data.type === 'calculate') {
+                    const result = e.data.data * 2;
+                    self.postMessage(result);
+                }
+            };
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>37. 什么是 CSS 网格模板区域（Grid Template Areas）？</h2>
+        <p>grid-template-areas 允许使用命名区域定义 Grid 布局，使代码更易读。通过 grid-area 为项目分配区域，使用 . 表示空单元格。</p>
+        <div class="code">
+            <style>
+                .grid-container {
+                    display: grid;
+                    grid-template-columns: 1fr 3fr 1fr;
+                    grid-template-areas:
+                        "header header header"
+                        "sidebar main aside"
+                        "footer footer footer";
+                    gap: 10px;
+                }
+                .header { grid-area: header; }
+                .sidebar { grid-area: sidebar; }
+                .main { grid-area: main; }
+                .aside { grid-area: aside; }
+                .footer { grid-area: footer; }
+            </style>
+            <div class="grid-container">
+                <div class="header">头部</div>
+                <div class="sidebar">侧边栏</div>
+                <div class="main">主内容</div>
+                <div class="aside">边栏</div>
+                <div class="footer">底部</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>38. 请解释 HTML5 的表单验证 API？</h2>
+        <p>HTML5 提供原生表单验证，通过 required、pattern、min/max 等属性，以及 checkValidity() 和 setCustomValidity() 方法。可自定义错误提示，减少 JavaScript 代码。</p>
+        <div class="code">
+            <form>
+                <input type="email" required placeholder="邮箱">
+                <input type="password" minlength="6" required placeholder="密码">
+                <input type="number" min="1" max="100" required placeholder="数量">
+                <input type="text" pattern="^[A-Za-z]+$" required placeholder="仅字母">
+                <button type="submit">提交</button>
+            </form>
+            <script>
+                const form = document.querySelector('form');
+                form.addEventListener('submit', e => {
+                    if (!form.checkValidity()) {
+                        e.preventDefault();
+                        alert('表单验证失败');
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>39. 什么是 CSS 嵌套？如何使用？</h2>
+        <p>CSS 嵌套允许在一个选择器内部编写另一个选择器，模拟 HTML 结构，减少重复代码。原生 CSS 嵌套使用 & 符号引用父选择器，也可通过预处理器（Sass/Less）实现。</p>
+        <div class="code">
+            <style>
+                .card {
+                    padding: 20px;
+                    border: 1px solid #ddd;
+
+                    &:hover {
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    }
+
+                    .title {
+                        font-size: 18px;
+                        color: #333;
+                    }
+
+                    .content {
+                        margin-top: 10px;
+                        line-height: 1.6;
+                    }
+                }
+            </style>
+            <div class="card">
+                <h3 class="title">卡片标题</h3>
+                <p class="content">卡片内容</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="question">
+        <h2>40. 请解释 CSS 的 will-change 属性及其作用？</h2>
+        <p>will-change 提示浏览器元素可能发生的变化（如 transform、opacity、top），使浏览器提前优化渲染。合理使用可提升性能，但过度使用会浪费资源。</p>
+        <div class="code">
+            <style>
+                .animated-element {
+                    will-change: transform, opacity;
+                    transition: transform 0.3s, opacity 0.3s;
+                }
+                .animated-element:hover {
+                    transform: scale(1.1);
+                    opacity: 0.8;
+                }
+            </style>
+            <div class="animated-element">将被动画的元素</div>
+        </div>
+    </div>
+</body>
+</html>

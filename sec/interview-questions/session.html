@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>sessionStorage</h1>
+    <button id="setBtn">设置sessionStorage</button>
+    <button id="getBtn">获取sessionStorage</button>
+    <button id="delBtn">删除sessionStorage</button>
+    <button id="clearBtn">清空sessionStorage</button>
+    <script>
+        // 获取浏览器地址栏参数
+        let urlParams = new URLSearchParams(window.location.search)
+        console.log(urlParams.get('page'))
+        // 浏览器地址栏参数添加到sessionStorage
+        if (urlParams.get('page')) {
+            sessionStorage.setItem('page', urlParams.get('page'))
+        }
+
+        // sessionStorage 生命周期为关闭页面时清除
+
+        let setBtn = document.getElementById('setBtn')
+        let getBtn = document.getElementById('getBtn')
+        let delBtn = document.getElementById('delBtn')
+        let clearBtn = document.getElementById('clearBtn')
+        setBtn.addEventListener('click', () => {
+            sessionStorage.setItem('name', 'yfw')
+        })
+        getBtn.addEventListener('click', () => {
+            console.log(sessionStorage.getItem('name'))
+        })
+        delBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('name')
+        })
+        clearBtn.addEventListener('click', () => {
+            sessionStorage.clear()
+        })
+
+    </script>
+
+    <h1>localStorage</h1>
+    <button id="setBtn2">设置localStorage</button>
+    <button id="getBtn2">获取localStorage</button>
+    <button id="delBtn2">删除localStorage</button>
+    <button id="clearBtn2">清空localStorage</button>
+    <script>
+        let setBtn2 = document.getElementById('setBtn2')
+        let getBtn2 = document.getElementById('getBtn2')
+        let delBtn2 = document.getElementById('delBtn2')
+        let clearBtn2 = document.getElementById('clearBtn2')
+        setBtn2.addEventListener('click', () => {
+            localStorage.setItem('name', 'yfw')
+        })
+        getBtn2.addEventListener('click', () => {
+            console.log(localStorage.getItem('name'))
+        })
+        delBtn2.addEventListener('click', () => {
+            localStorage.removeItem('name')
+        })
+        clearBtn2.addEventListener('click', () => {
+            localStorage.clear()
+        })
+        // localStorage 生命周期为永久
+        // 浏览器关闭后数据依然存在
+    </script>
+
+</body>
+</html>

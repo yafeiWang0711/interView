@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>原生HTML中如何给DOM元素设置事件</title>
+  </head>
+  <body>
+    <h1 onclick="alert('点击了标签内触发的事件')">
+      内联事件处理 直接在标签内写
+    </h1>
+    <h1 id="h1D">DOM元素属性方式 onclikc等</h1>
+    <h1 id="h2D">addEventListener</h1>
+  </body>
+  <script>
+    document.getElementById("h1D").onclick = function () {
+      alert("通过 document.getElementById('h1D').onclick =");
+    };
+    let h2d = document.getElementById("h2D");
+    h2d.addEventListener("click", function () {
+      alert("这是通过addEventListener触发的");
+    });
+
+
+    // 捕获阶段 从window到目标元素
+    // 目标阶段
+    // 冒泡阶段 从目标元素返回到window
+
+    // addEventListener 接受三个参数， 事件类型/回掉函数/可选参数（是否启用捕获，是否只执行一次）
+  </script>
+</html>

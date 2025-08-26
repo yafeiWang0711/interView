@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多标签页连线效果</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        #connectionCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .tab-indicator {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #4a6cf7;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(74, 108, 247, 0.7);
+            transition: all 0.3s ease;
+        }
+        .tab-indicator:hover {
+            width: 24px;
+            height: 24px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        .info-panel h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #555;
+        }
+        .info-panel p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .tab-id {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4a6cf7;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>多标签页连线演示</h1>
+    <div class="container">
+        <canvas id="connectionCanvas"></canvas>
+        <div class="tab-indicator" id="currentTabIndicator">
+            <div class="tab-id" id="tabIdDisplay"></div>
+        </div>
+    </div>
+    <div class="info-panel">
+        <h2>使用说明</h2>
+        <p>1. 打开多个浏览器标签页访问此页面</p>
+        <p>2. 移动鼠标，观察不同标签页之间的连线变化</p>
+        <p>3. 每个标签页的位置会通过 localStorage 共享</p>
+        <p id="activeTabsCount">当前活跃标签页数量: 1</p>
+    </div>
+
+    <script>
+        // 生成唯一标签页ID
+        const tabId = 'tab_' + Math.random().toString(36).substr(2, 9);
+        document.getElementById('tabIdDisplay').textContent = '标签页 ' + tabId.substr(4, 5);
+
+        // 获取Canvas和上下文
+        const canvas = document.getElementById('connectionCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.querySelector('.container');
+        const currentTabIndicator = document.getElementById('currentTabIndicator');
+        const activeTabsCount = document.getElementById('activeTabsCount');
+
+        // 设置Canvas尺寸
+        function resizeCanvas() {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            drawConnections();
+        }
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // 存储标签页位置信息
+        function storeTabPosition(x, y) {
+            const tabData = {
+                id: tabId,
+                x: x,
+                y: y,
+                lastUpdated: Date.now()
+            };
+
+            // 获取现有标签页数据
+            let tabsData = JSON.parse(localStorage.getItem('multiTabPositions') || '[]');
+
+            // 更新当前标签页数据或添加新数据
+            const existingIndex = tabsData.findIndex(tab => tab.id === tabId);
+            if (existingIndex >= 0) {
+                tabsData[existingIndex] = tabData;
+            } else {
+                tabsData.push(tabData);
+            }
+
+            // 过滤掉过期的标签页数据(超过5秒未更新)
+            const now = Date.now();
+            tabsData = tabsData.filter(tab => now - tab.lastUpdated < 5000);
+
+            // 保存到localStorage
+            localStorage.setItem('multiTabPositions', JSON.stringify(tabsData));
+            localStorage.setItem('multiTabUpdateSignal', Date.now().toString());
+        }
+
+        // 绘制连线
+        function drawConnections() {
+            // 清空画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 获取标签页数据
+            const tabsData = JSON.parse(localStorage.getItem('multiTabPositions') || '[]');
+            const currentTab = tabsData.find(tab => tab.id === tabId);
+
+            // 更新活跃标签页计数
+            activeTabsCount.textContent = `当前活跃标签页数量: ${tabsData.length}`;
+
+            if (tabsData.length < 2 || !currentTab) return;
+
+            // 绘制当前标签页到其他标签页的连线
+            tabsData.forEach(tab => {
+                if (tab.id !== tabId) {
+                    ctx.beginPath();
+                    ctx.moveTo(currentTab.x, currentTab.y);
+                    ctx.lineTo(tab.x, tab.y);
+                    ctx.strokeStyle = 'rgba(74, 108, 247, 0.5)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // 绘制连线中间的小圆点
+                    const midX = (currentTab.x + tab.x) / 2;
+                    const midY = (currentTab.y + tab.y) / 2;
+                    ctx.beginPath();
+                    ctx.arc(midX, midY, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(74, 108, 247, 0.7)';
+                    ctx.fill();
+                }
+            });
+        }
+
+        // 处理鼠标移动
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // 更新当前标签页指示器位置
+            currentTabIndicator.style.left = `${x}px`;
+            currentTabIndicator.style.top = `${y}px`;
+
+            // 存储位置
+            storeTabPosition(x, y);
+        });
+
+        // 初始位置
+        storeTabPosition(canvas.width / 2, canvas.height / 2);
+        currentTabIndicator.style.left = `${canvas.width / 2}px`;
+        currentTabIndicator.style.top = `${canvas.height / 2}px`;
+
+        // 监听localStorage变化
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'multiTabUpdateSignal') {
+                drawConnections();
+            }
+        });
+
+        // 页面卸载时清理
+        window.addEventListener('beforeunload', () => {
+            let tabsData = JSON.parse(localStorage.getItem('multiTabPositions') || '[]');
+            tabsData = tabsData.filter(tab => tab.id !== tabId);
+            localStorage.setItem('multiTabPositions', JSON.stringify(tabsData));
+        });
+
+        // 定期更新以保持活跃状态
+        setInterval(() => {
+            const rect = container.getBoundingClientRect();
+            const x = parseFloat(currentTabIndicator.style.left) || canvas.width / 2;
+            const y = parseFloat(currentTabIndicator.style.top) || canvas.height / 2;
+            storeTabPosition(x, y);
+        }, 1000);
+    </script>
+</body>
+</html>
