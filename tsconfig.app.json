@@ -23,7 +23,9 @@
       "@router/*": ["src/router/*"],
       "@assets/*": ["src/assets/*"],
       "@study/*": ["src/study/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@pages/*": ["src/pages/*"]
+      // 更多路径别名配置...
     },
     
     /* Linting */

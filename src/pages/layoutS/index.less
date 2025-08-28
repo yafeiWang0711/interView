@@ -1,0 +1,64 @@
+
+/* 确保根元素和 body 高度为 100% */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 最外层容器设置为 flex 布局并占满整个高度 */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+/* header 部分高度固定 */
+.layout-header {
+  height: 64px;
+}
+
+/* content 部分使用 flex: 1 占据剩余空间 */
+.content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+/* 侧边栏宽度固定 */
+.sider {
+  width: 200px;
+  background-color: #f0f2f5;
+  overflow-y: auto;
+}
+
+/* 主内容区域占据剩余空间 */
+.main {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  .main-content {
+    min-height: 100%;
+  }
+}
+
+/* 路由页面样式 */
+.route-page {
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  min-height: 400px;
+}
+
+.route-page h2 {
+  color: #262626;
+  margin-top: 0;
+}
+
+.route-page p {
+  color: #595959;
+  line-height: 1.6;
+}

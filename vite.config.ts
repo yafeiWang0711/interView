@@ -23,7 +23,22 @@ export default defineConfig({
       '@router': path.resolve(__dirname, 'src/router'),
       '@assets': path.resolve(__dirname, 'src/assets'),
       '@study': path.resolve(__dirname, 'src/study'),
-      '@store': path.resolve(__dirname, 'src/store')
+      '@store': path.resolve(__dirname, 'src/store'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+    }
+  },
+  // 添加全局 Less 变量配置
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          // // 可以在这里直接覆盖 antd 的主题变量
+          // 'primary-color': '#1890ff',
+          // 'border-radius-base': '4px'
+        },
+        javascriptEnabled: true,
+        additionalData: `@import '${path.resolve(__dirname, 'src/theme/variables.less')}';`
+      }
     }
   },
   server: {

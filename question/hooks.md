@@ -17,6 +17,14 @@
         用于访问上下文（Context）中的值
         例如：
         const value = useContext(MyContext);
+        主要用途
+           跨组件状态共享
+                适用于需要在多个组件之间共享数据（如用户登录状态、主题设置等），通过在顶层组件使用 Provider 提供数据，下层组件通过useContext获取。 ‌
+            简化状态管理
+                避免props传递的繁琐，提高代码可读性和维护性。 ‌
+            自动更新机制
+                当Context值变化时，相关组件会自动重新渲染，实现动态响应。 ‌
+
     4. useReducer
         用于替代 useState 和 useEffect，可以处理更复杂的逻辑
         例如：
