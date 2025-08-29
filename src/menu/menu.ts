@@ -6,51 +6,53 @@ const menuItems: MenuItem[] = [
     label: '系统首页',
     path: '/sys/home'
   },
+  
+]
+const menuItemsJsAndTs: MenuItem[] = [
   {
-    key: 'dashboard',
-    label: '数据看板',  
-    path: '/sys/dashboard'
-  },
-  {
-    key: 'users',
-    label: '用户管理',
-    path: '/sys/users'
-  },
-  {
-    key: 'settings',
-    label: '系统设置',
-    path: '/sys/settings'
-  },
-  {
-    key: 'reports',
-    label: '报表分析',
-    path: '/sys/reports'
+    key: 'jsAndTsType',
+    label: 'jsAndTsType',
+    path: '/sys/jsAndTsType'
   },
 ]
-
 const menuItemsI: MenuItem[] = [
   {
-    key: 'home',
-    label: '系统首页',
-    path: '/sys/home'
+    key: 'useStateC',
+    label: 'useStateC钩子函数',
+    path: '/sys/useStateC'
   },
   {
-    key: 'dashboard',
-    label: '数据看板',  
-    path: '/sys/dashboard'
+    key: 'useEffectC',
+    label: 'useEffect钩子函数',
+    path: '/sys/useEffectC'
+  },
+  {
+    key: 'useMemoC',
+    label: 'useMemo钩子函数',
+    path: '/sys/useMemoC'
+  },
+  {
+    key: 'useContextC',
+    label: 'useContext钩子函数',
+    path: '/sys/useContextC'
+  },
+  {
+    key: 'useCallbackC',
+    label: 'useCallback钩子函数',
+    path: '/sys/useCallbackC'
   },
 ]
 const headerMenuItemsI: MenuItem[] = [
   {
-    key: 'module1',
-    label: '模块1',
-    path: '/sys/home',
-    children: menuItems
+    key: 'jsAndTs',
+    label: 'jsAndTs',
+    path: '/sys/jsAndTs',
+    children: menuItemsJsAndTs
   },
-    {
-    key: 'module2',
-    label: '模块2',
-    path: '/sys/home',
+  {
+    key: 'hooks',
+    label: 'hooks',
+    path: '/sys/hooks',
     children: menuItemsI
   },
 ]
