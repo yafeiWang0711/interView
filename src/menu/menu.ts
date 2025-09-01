@@ -41,6 +41,11 @@ const menuItemsI: MenuItem[] = [
     label: 'useCallback钩子函数',
     path: '/sys/useCallbackC'
   },
+  {
+    key: 'authButton',
+    label: 'authButton权限按钮',
+    path: '/sys/authButton'
+  },
 ]
 const headerMenuItemsI: MenuItem[] = [
   {

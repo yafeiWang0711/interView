@@ -15,6 +15,7 @@ const UseEffectC = React.lazy(() => import('@pages/study/hooks/useEffectC.tsx'))
 const UseMemoC = React.lazy(() => import('@pages/study/hooks/useMemoC.tsx'));
 const UseContextC = React.lazy(() => import('@pages/study/hooks/useConetxt/rootC.tsx'));
 const UseCallbackC = React.lazy(() => import('@pages/study/hooks/useCallbackC.tsx'));
+const AuthButton = React.lazy(() => import('@pages/study/other/authButton.tsx'));
 
 const JsAndTsType = React.lazy(() => import('@pages/study/jsAndTs/type.tsx'));
 
@@ -47,7 +48,7 @@ const routes = [
       { path: 'useMemoC', element: <UseMemoC /> },
       { path: 'useContextC', element: <UseContextC /> },
       { path: 'useCallbackC', element: <UseCallbackC /> },
-
+      { path: 'authButton', element: <AuthButton /> },
       { path: 'jsAndTsType', element: <JsAndTsType /> },
     
     ]

@@ -10,7 +10,7 @@ function App() {
         <h1>React学习入口</h1>
 
        <Button onClick={() => navigate('/study')}>进入学习中心</Button>
-      <Button onClick={() => navigate('/sys')}>进入React Router学习</Button>
+       <Button onClick={() => navigate('/sys')}>进入React Router学习</Button>
       </div>
     </div>
   );
