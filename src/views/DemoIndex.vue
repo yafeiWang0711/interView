@@ -1,7 +1,7 @@
 <template>
   <div class="demo-index">
     <h1>前端知识演示导航</h1>
-
+    
     <div class="demo-grid">
       <!-- Vue3 父子组件传值演示 -->
       <div class="demo-card">
@@ -13,23 +13,11 @@
           <span class="feature">Ref调用</span>
           <span class="feature">Provide/Inject</span>
         </div>
-        <router-link to="/vue-demo" class="demo-link"> 查看演示 </router-link>
+        <router-link to="/vue-demo" class="demo-link">
+          查看演示
+        </router-link>
       </div>
-      <!-- pinia -->
-      <div class="demo-card">
-        <h3>Vue3 pinia状态管理演示</h3>
-        <p>演示Vue3中pinia状态管理的使用</p>
-        <div class="demo-features">
-          <span class="feature">状态管理</span>
-          <span class="feature"> actions</span>
-          <span class="feature">getters</span>
-          <span class="feature">插件</span>
-          <span class="feature">模块</span>
-          <span class="feature">持久化</span>
-          <span class="feature">热更新</span>
-        </div>
-        <router-link to="/pinia" class="demo-link"> 查看演示 </router-link>
-      </div>
+
       <!-- 浏览器URL过程演示 -->
       <div class="demo-card">
         <h3>浏览器输入URL过程</h3>
@@ -75,32 +63,16 @@
         </router-link>
       </div>
 
-      <!-- 前端性能优化问答 -->
+      <!-- 综合测试页面 -->
       <div class="demo-card">
-        <h3>前端性能优化问答</h3>
-        <p>关于前端性能优化的常见问题及详细解答</p>
+        <h3>综合测试页面</h3>
+        <p>包含各种前端知识点的综合测试页面</p>
         <div class="demo-features">
-          <span class="feature">加载优化</span>
-          <span class="feature">渲染优化</span>
-          <span class="feature">资源优化</span>
-          <span class="feature">性能分析</span>
+          <span class="feature">组件演示</span>
+          <span class="feature">过程展示</span>
+          <span class="feature">交互测试</span>
         </div>
-        <router-link to="/performance-qa" class="demo-link">
-          查看演示
-        </router-link>
-      </div>
-
-      <!-- 新增Vue内部原理解析导航卡片 -->
-      <div class="demo-card">
-        <h3>Vue内部原理解析</h3>
-        <p>深入解析Vue v-model、响应式原理及浏览器回流重绘机制</p>
-        <div class="demo-features">
-          <span class="feature">v-model源码</span>
-          <span class="feature">响应式原理</span>
-          <span class="feature">回流重绘</span>
-          <span class="feature">性能优化</span>
-        </div>
-        <router-link to="/vue-internals" class="demo-link">
+        <router-link to="/test" class="demo-link">
           查看演示
         </router-link>
       </div>
@@ -111,20 +83,10 @@
       <h3>快速导航</h3>
       <div class="nav-links">
         <router-link to="/vue-demo" class="nav-link">Vue3传值演示</router-link>
-        <router-link to="/url-process" class="nav-link"
-          >URL过程演示</router-link
-        >
+        <router-link to="/url-process" class="nav-link">URL过程演示</router-link>
         <router-link to="/virtual-list" class="nav-link">虚拟列表</router-link>
-        <router-link to="/advanced-virtual-list" class="nav-link"
-          >高级虚拟列表</router-link
-        >
+        <router-link to="/advanced-virtual-list" class="nav-link">高级虚拟列表</router-link>
         <router-link to="/test" class="nav-link">综合测试</router-link>
-        <router-link to="/performance-qa" class="nav-link"
-          >性能优化问答</router-link
-        >
-        <router-link to="/vue-internals" class="nav-link"
-          >Vue内部原理</router-link
-        >
         <router-link to="/" class="nav-link">返回主页</router-link>
       </div>
     </div>
@@ -250,15 +212,15 @@
   .demo-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .nav-links {
     flex-direction: column;
     align-items: center;
   }
-
+  
   .nav-link {
     width: 200px;
     text-align: center;
   }
 }
-</style>
+</style> 
