@@ -11,6 +11,8 @@ function App() {
 
        <Button onClick={() => navigate('/study')}>进入学习中心</Button>
        <Button onClick={() => navigate('/sys')}>进入React Router学习</Button>
+       <Button onClick={() => navigate('/bsView')}>进入可视化大屏学习 16:9</Button>
+       <Button onClick={() => navigate('/interview')}>面试题</Button>
       </div>
     </div>
   );

@@ -24,7 +24,8 @@
       "@assets/*": ["src/assets/*"],
       "@study/*": ["src/study/*"],
       "@store/*": ["src/store/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"]
       // 更多路径别名配置...
     },
     

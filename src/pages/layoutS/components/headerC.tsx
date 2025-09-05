@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import './headerC.less'; // 导入 Less 文件
 import headerMenuItemsI from '@/menu/menu';
 import type { MenuItem } from '@/types/interface';
-
+import { useNavigate } from 'react-router-dom';
 interface HeaderProps {
   title?: string;
   isActive?: boolean;
@@ -14,6 +14,7 @@ const HeaderC: React.FC<HeaderProps> = ({
   title = '默认标题',
   onHeadMenuChange,
 }) => {
+  const navigate = useNavigate();
   const [activeKey, setActiveKey] = useState<string>('');
   const headerMenuChange = (key: string) => {
     setActiveKey(key);
@@ -34,7 +35,10 @@ const HeaderC: React.FC<HeaderProps> = ({
   }, [])
   return (
     <div className="header">
-      <h1 className="title">{title}</h1>
+      <h1 className="title">{title}
+        <Button className="button" onClick={() => navigate('/')}>返回首页</Button>
+        
+      </h1>
       <div className="header-content">
         <div className="nav">
           {headerMenuItemsI.map((item: MenuItem) => (

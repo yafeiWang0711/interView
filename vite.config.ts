@@ -25,6 +25,7 @@ export default defineConfig({
       '@study': path.resolve(__dirname, 'src/study'),
       '@store': path.resolve(__dirname, 'src/store'),
       '@pages': path.resolve(__dirname, 'src/pages'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
     }
   },
   // 添加全局 Less 变量配置
