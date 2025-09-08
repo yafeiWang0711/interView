@@ -1,179 +1,197 @@
-import { Card, Col, Row, Button, Modal } from 'antd';
-import { useState } from 'react';
-import InterviewContext from './context';
+import { deleteOneLevel, getLevelTree } from '@api/getStudy';
+import { useEffect, useState } from 'react';
+import { Row, Col, Card, Button, Modal, } from 'antd';
+import {
+    DeleteOutlined
+} from '@ant-design/icons';
+import AddLevelOne from './components/addLevelOne';
+import AddLevelTwo from './components/addLevelTwo';
+import AddContent from './components/addContent';
+
+interface ApiLevelOneList {
+    levelKey: string;
+    levelName: string;
+    levelTwoId: number;
+}
+// 层级树结构
+interface ApiLevelTree {
+    levelKey: string;
+    levelName: string;
+    levelOneId?: number; // 修改为可选
+    children?: ApiLevelOneList[];
+}
+
+
 const Interview = () => {
-    const interviewList = [
-        {
-            title: '排序算法',
-            contentDes: [
-                {
-                    title: '冒泡排序',
-                    key: 'sort/bubbleSort'
-                },
-                {
-                    title: '快速排序',
-                    key: 'sort/quickSort'
-                },
-                {
-                    title: '插入排序',
-                    key: 'sort/insertSort'
-                },
-                {
-                    title: '选择排序',
-                    key: 'sort/selectSort'
-                },
-            ],
-            key: 'sort',
-            contentKey: 'sort',
-        },
-        {
-            title: 'es6',
-            contentDes: [
-                {
-                    title: 'let和const',
-                    key: 'es6/letAndConst'
-                },
-                {
-                    title: '箭头函数',
-                    key: 'es6/arrowFunction',
-                },
-                {
-                    title: '解构赋值',
-                    key: 'es6/destructuring',
-                },
-                {
-                    title: '字符串增强',
-                    key: 'es6/stringEnhancement',
-                },
-                {
-                    title: '扩展运算符与剩余参数',
-                    key: 'es6/extensionOperatorAndRestParameter'
-                },
-                {
-                    title: '类',
-                    key: 'es6/class',
-                },
-                {
-                    title: '模块化',
-                    key: 'es6/module',
-                },
-                {
-                    title: '异步编程',
-                    key: 'es6/asyncProgramming',
-                },
-            ],
-            key: 'es6',
-            contentKey: 'es6',
-        },
-        {
-            title: '性能优化',
-            contentDes: [
-                {
-                    title: '懒加载',
-                    key: 'performanceOptimization/lazyLoading'
-                },
-                {
-                    title: '资源体积优化',
-                    key: 'performanceOptimization/resourceVolumeOptimization'
-                },
-                {
-                    title: '代码分割',
-                    key: 'performanceOptimization/codeSplitting'
-                },
-                {
-                    title: 'webpack',
-                    key: 'performanceOptimization/webpack'
-                },
-                {
-                    title: 'vite',
-                    key: 'performanceOptimization/vite'
-                },
-                {
-                    title: 'tree-shaking',
-                    key: 'performanceOptimization/treeShaking'
-                },
-            ],
-            key: 'performanceOptimization',
-            contentKey: 'performanceOptimization',
-        },
-        {
-            title: 'vue2',
-            contentDes: [
-                {
-                    title: 'vue2 响应式原理',
-                    key: 'vue/vue2-object.defineProperty'
-                },
-            ]
-        }
+    const interView = {
+        padEnd: 10,
+        height: '100vh',
+        width: '100%',
+        backgroundColor: '#f0f2f5',
+        cursor: 'pointer'
+    }
+    // const [levelOneList, setLevelOneList] = useState<ApiLevelOneList[]>([]);
+    const [levelTree, setLevelTree] = useState<ApiLevelTree[]>([]);
 
+    useEffect(() => {
+        // getLevelOne();
+        getLevelTreeData();
 
-    ]
-    // 模态框状态
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    // 模态框内容
-    const [modalItem, setModalItem] = useState<{
-        title: string;
-        key: string;
-    }>({ title: '', key: '' });
+    }, []);
 
-    // 显示模态框
-    const showModal = (item: { title: string; key: string }) => {
-        setModalItem(item);
-        setIsModalOpen(true);
-    };
+    // 获取层级树结构
+    const getLevelTreeData = () => {
+        getLevelTree().then(res => {
+            // 数据有变化时重新渲染页面 防止重复渲染
+            if (JSON.stringify(res.data) !== JSON.stringify(levelTree)) {
+                setLevelTree(res.data || []);
+            }
+        });
+    }
 
-
-    // 模态框确认按钮事件
-    // const handleOk = () => {
-    //     setModalItem({title: '', key: ''});
-    //     setIsModalOpen(false);
-    // };
-
+    // 新增一级
+    const [visibleOne, setVisibleOne] = useState<boolean>(false);
+    const addLevelOne = () => {
+        setVisibleOne(true);
+    }
+    // 新增一级 成功之后关闭弹窗 或者点击取消按钮关闭弹窗
     const handleCancel = () => {
-        setModalItem({ title: '', key: '' });
-        setIsModalOpen(false);
-    };
+        setVisibleOne(false);
+        // 重新获取层级树结构
+        getLevelTreeData();
+    }
+
+    // 删除一级
+    const deleteLevelOne = (levelOneId: number) => {
+        deleteOneLevel({ levelOneId: Number(levelOneId) }).then(res => {
+            if (res.code === 200) {
+                // 重新获取层级树结构
+                getLevelTreeData();
+            } else {
+                alert('删除失败');
+            }
+        }).catch(() => {
+            alert('删除失败');
+        })
+    }
+
+    // 新增二级
+    // 新增二级种类时 需要知道是哪个一级种类的子类 所以在点击新增二级种类的时候 需要传递一个参数 就是一级种类的id
+    const [levelOneId, setLevelOneId] = useState<number>(0);
+
+    const [visibleTwo, setVisibleTwo] = useState<boolean>(false);
+    const addLevelTwo = (levelOneId: number) => {
+        setLevelOneId(levelOneId);
+        setVisibleTwo(true);
+    }
+    // 新增二级 成功之后关闭弹窗 或者点击取消按钮关闭弹窗
+    const handleCancelTwo = () => {
+        setVisibleTwo(false);
+        // 重新获取层级树结构
+        getLevelTreeData();
+    }
+
+    const [AddContentType, setAddContentType] = useState<string>('');
+    // 新增内容
+    const [visibleContent, setVisibleContent] = useState<boolean>(false);
+    // 新增内容 成功之后关闭弹窗 或者点击取消按钮关闭弹窗
+    const addContent = () => {
+        // 新增内容 成功之后关闭弹窗 或者点击取消按钮关闭弹窗
+           setDetailsIds({
+            levelOneId: 0,
+            levelTwoId: 0
+        });
+        setAddContentType('add');
+        setVisibleContent(true);
+    }
+    // 新增内容 成功之后关闭弹窗 或者点击取消按钮关闭弹窗
+    const handleCancelContent = () => {
+        setVisibleContent(false);
+        // 重新获取层级树结构
+        getLevelTreeData();
+    }
+
+    // 查看详情
+    const [detailsIds, setDetailsIds] = useState<{ levelOneId: number; levelTwoId: number }>({
+        levelOneId: 0,
+        levelTwoId: 0
+    });
+    const details = (levelOneId: number, levelTwoId: number) => {
+        setDetailsIds({
+            levelOneId,
+            levelTwoId
+        });
+        setAddContentType('details');
+        setVisibleContent(true);
+
+    }
 
     return (
-        <div style={{ padding: 24, height: '100vh', backgroundColor: '#dbdbdb' }}>
-            <Row gutter={16}>
-                {
-                    interviewList.map((item) => {
-                        return (
-                            <Col span={4} key={item.key}>
-                                <Card title={item.title} style={{ width: '100%' }}>
-                                    {
-                                        item.contentDes.map((c, index) =>
-                                            <Button type="primary" style={{ margin: 2 }} size="small"
-                                                onClick={() => {
-                                                    showModal(c);
-                                                }}
-                                                key={c.key || index}>{typeof c === 'string' ? c : c.title}</Button>)
-                                    }
+        <>
+            <div style={interView}>
+                <div style={{ padding: 10 }}>
+                    <Button type='primary' onClick={addLevelOne} style={{ margin: 10 }}>新增一级种类</Button>
+                    <Button type='primary' onClick={addContent} style={{ margin: 10 }}>新增内容</Button>
+                </div>
+                <Modal
+                    title={'新增一级种类'}
+                    closable={false}
+                    open={visibleOne}
+                    width={900}
+                    footer={[
+                    ]}
+                >
+                    <AddLevelOne handleCancel={handleCancel} />
+                </Modal>
+
+                <Modal
+                    title={'新增二级种类'}
+                    closable={false}
+                    open={visibleTwo}
+                    width={900}
+                    footer={[
+                    ]}
+                >
+                    <AddLevelTwo levelOneId={levelOneId} handleCancelTwo={handleCancelTwo} />
+                </Modal>
+
+
+                {/* 弹出框关闭时 清空表单数据 */}
+                <Modal
+                    title={'内容'}
+                    closable={false}
+                    open={visibleContent}
+                    width={900}
+                    footer={[
+                    ]}
+                >
+                  
+                    <AddContent detailsIds={detailsIds} type={AddContentType} handleCancelContent={handleCancelContent} />
+
+                </Modal>
+
+
+                <div style={{ padding: 10 }}>
+                    <Row gutter={16}>
+                        {levelTree.map((item) => (
+                            <Col className="gutter-row" span={6} key={item.levelKey}>
+                                <Card title={item.levelName} extra={<>
+                                    <Button onClick={() => addLevelTwo(item.levelOneId as number)} type='primary' size='small' style={{ margin: 10 }}>新增二级标签</Button>
+                                    {item.children && item.children.length < 1 && <DeleteOutlined onClick={() => deleteLevelOne(item.levelOneId as number)} style={{ margin: 10, color: 'red' }} />}
+                                </>} style={{ width: '100%' }}>
+                                    {item.children?.map((itemI) => (
+                                        <Button size='small' onClick={() => details(item.levelOneId as number, itemI.levelTwoId)} style={{ margin: 2 }} type='primary' key={itemI.levelKey}>{itemI.levelName}</Button>
+                                    ))}
                                 </Card>
                             </Col>
-                        )
-                    })
-                }
-            </Row>
-            {/* 模态框 */}
+                        ))}
+                    </Row>
+                </div>
 
-            <Modal
-                title={modalItem.title}
-                closable={false}
-                open={isModalOpen}
-                width={900}
-                footer={[
-                    <Button key="close" onClick={handleCancel} type="primary">
-                        关闭
-                    </Button>,
-                ]}
-            >
-                <InterviewContext title={modalItem.title} contentKey={modalItem.key} />
+            </div>
 
-            </Modal>
-        </div>
-    )
+        </>
+    );
 }
 
 export default Interview;

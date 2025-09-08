@@ -26,6 +26,7 @@ export default defineConfig({
       '@store': path.resolve(__dirname, 'src/store'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@utils': path.resolve(__dirname, 'src/utils'),
+      '@api': path.resolve(__dirname, 'src/api'),
     }
   },
   // 添加全局 Less 变量配置
@@ -43,6 +44,13 @@ export default defineConfig({
     }
   },
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/api', // 替换为实际的后端API地址
+        changeOrigin: true, // 允许跨域
+        rewrite: (path) => path.replace(/^\/api/, '') // 重写路径，去掉/api前缀
+      }
+    }
   }
 })
